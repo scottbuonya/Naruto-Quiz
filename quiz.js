@@ -20,6 +20,7 @@
       choices: ["Konichiwa", "Hokage", "Boruto", "Shinobi"],
       correctAnswer: "Shinobi"
     }];
+    console.log(questions);
 
     var questionCounter = 0; //Tracks question number
     var selections = []; //Array containing user choices
@@ -46,6 +47,7 @@
         displayNext();
       }
     });
+    console.log(questionCounter)
     
     // Click handler for the 'prev' button
     $('#prev').on('click', function (e) {
@@ -145,28 +147,40 @@
     
   })();
 
-  function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+function startTimer(duration, display) {
+  var timer = duration, minutes, seconds;
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+var countdown = setInterval(function () {
+    minutes = parseInt(timer / 60, 10)
+    seconds = parseInt(timer % 60, 10);
 
-        display.textContent = minutes + ":" + seconds;
+    //minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-        } else (timer === 0) {
-          clearInterval();
-        }
-    }, 1000);
+    display.textContent = minutes + ":" + seconds;
+
+  $(".startClock").click(function () {
+      clearInterval(countdown);
+    }); 
+    if (--timer < 0) {
+          alert("sorry out of time!")
+          clearInterval(countdown);
+  
+          }
+}, 1000);
+} 
+
+var display = document.querySelector('#time');
+
+function startClock() {
+        var seconds = 5;
+        startTimer(seconds, display);
+        
 }
 
-window.onload = function () {
-    var oneMinutes = 60 * 1,
-        display = document.querySelector('#time');
-    startTimer(oneMinutes, display);
-};
 
+
+$(".startClock").on("click", function() {
+startClock();
+
+});
